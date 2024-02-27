@@ -18,18 +18,8 @@
         <!-- Start Content-->
         <div class="container-fluid">
 
-            <!-- start page title -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="page-title-box">
-                        <h4 class="page-title">Welcome to Napver Dashboard</h4>
-                    </div>
-                </div>
-            </div>
-            <!-- end page title -->
-
             {{--  Add contain here  --}}
-            @yield('content')
+            @yield('')
 
 
         </div> <!-- container -->
