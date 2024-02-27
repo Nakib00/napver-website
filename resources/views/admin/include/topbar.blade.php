@@ -11,7 +11,7 @@
                         <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
                             href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <span class="pro-user-name ml-1">
-                                Geneva <i class="mdi mdi-chevron-down"></i>
+                                {{ auth()->user()->name }} <i class="mdi mdi-chevron-down"></i>
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
@@ -21,16 +21,21 @@
                             </div>
 
                             <!-- item-->
-                            <a href="{{route('profile.edit')}}" class="dropdown-item notify-item">
+                            <a href="{{ route('profile.edit') }}" class="dropdown-item notify-item">
                                 <i class="fe-user"></i>
                                 <span>My Account</span>
                             </a>
                             <div class="dropdown-divider"></div>
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                class="dropdown-item notify-item">
                                 <i class="fe-log-out"></i>
                                 <span>Logout</span>
-                            </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
                         </div>
                     </li>
                     <li class="dropdown notification-list">
@@ -73,20 +78,24 @@
                 <div class="user-box text-center">
                     <div class="dropdown">
                         <a href="javascript: void(0);" class="text-dark dropdown-toggle h5 mt-2 mb-1 d-block"
-                            data-toggle="dropdown">Geneva Kennedy</a>
+                            data-toggle="dropdown">{{ auth()->user()->name }}</a>
                         <div class="dropdown-menu user-pro-dropdown">
 
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <a href="{{ route('profile.edit') }}" class="dropdown-item notify-item">
                                 <i class="fe-user mr-1"></i>
                                 <span>My Account</span>
                             </a>
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="fe-log-out mr-1"></i>
+                            <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                class="dropdown-item notify-item">
+                                <i class="fe-log-out"></i>
                                 <span>Logout</span>
-                            </a>
-
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
                         </div>
                     </div>
                     <p class="text-muted">Admin Head</p>

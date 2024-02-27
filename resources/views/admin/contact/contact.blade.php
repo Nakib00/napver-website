@@ -2,6 +2,15 @@
 
 @section('content')
 
-<H1>contact</H1>
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Contact</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
 
 @endsection
