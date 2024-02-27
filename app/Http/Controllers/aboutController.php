@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\about;
 
 class aboutController extends Controller
 {
@@ -21,6 +22,7 @@ class aboutController extends Controller
     public function create()
     {
         //
+        return view('admin.about.add');
     }
 
     /**
@@ -28,7 +30,38 @@ class aboutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate the request data
+        $validatedData = $request->validate([
+            'title' => 'required|string',
+            'shortDescription' => 'required|string',
+            'description' => 'nullable|string',
+            'image' => 'required|image|max:2048',
+        ]);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $extension = $image->getClientOriginalExtension(); // Get the file extension
+            $filename = time() . '_' . uniqid() . '.' . $extension; // Generate a unique filename
+            $path = 'uploads/image/about'; // Define the target directory
+            $image->move($path, $filename); // Move the uploaded file to the target directory
+            $imagePath = $path . '/' . $filename; // Set the logo path
+        }
+
+        // Create a new instance of the about model
+        $about = new About();
+        $about->title = $validatedData['title'];
+        $about->shortDescription = $validatedData['shortDescription'];
+        $about->description = $validatedData['description'];
+        $about->image = $imagePath ?? null;
+
+
+        // Save the about instance
+        if ($about->save()) {
+            return redirect()->back()->with('success', 'About information has been saved successfully.');
+        } else {
+            return redirect()->back()->with('error', 'Failed to save about information.');
+        }
     }
 
     /**

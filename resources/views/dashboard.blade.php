@@ -18,6 +18,9 @@
         <!-- Start Content-->
         <div class="container-fluid">
 
+            {{--  Include alert  --}}
+            @include('admin.include.alert')
+
             {{--  Add contain here  --}}
             @yield('content')
 
