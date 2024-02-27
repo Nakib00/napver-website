@@ -29,6 +29,7 @@
             <!-- end page title -->
 
             {{--  Add contain here  --}}
+            @yield('content')
 
 
         </div> <!-- container -->
