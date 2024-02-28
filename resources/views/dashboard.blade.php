@@ -23,8 +23,7 @@
 
             {{--  Add contain here  --}}
             @yield('content')
-
-
+            
         </div> <!-- container -->
     </div> <!-- content -->
 </div>

@@ -21,16 +21,13 @@
                             </div>
 
                             <!-- item-->
-                            <a href="{{ route('profile.edit') }}" class="dropdown-item notify-item">
+                            <a href="{{ route('profile.edit') }}">
                                 <i class="fe-user"></i>
                                 <span>My Account</span>
                             </a>
                             <div class="dropdown-divider"></div>
                             <!-- item-->
-                            <a href="{{ route('logout') }}"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                                class="dropdown-item notify-item">
-                                <i class="fe-log-out"></i>
+                            <a href="{{ route('logout') }}">
                                 <span>Logout</span>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                     style="display: none;">
@@ -39,8 +36,7 @@
                         </div>
                     </li>
                     <li class="dropdown notification-list">
-                        <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect waves-light">
-                            <i class="fe-settings noti-icon"></i>
+                        <a href="" class="nav-link right-bar-toggle waves-effect waves-light">
                         </a>
                     </li>
                 </ul>
