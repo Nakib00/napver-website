@@ -32,7 +32,5 @@
 <!-- End Page content -->
 <!-- ============================================================== -->
 
-{{--  Include right ber  --}}
-@include('admin.include.rightber')
 
 @include('admin.include.footer')
