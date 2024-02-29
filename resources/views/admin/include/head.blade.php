@@ -23,5 +23,4 @@
 
     <!-- icons -->
     <link href="{{asset('assetsAdmin/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
-
 </head>
