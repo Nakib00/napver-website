@@ -16,18 +16,18 @@
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
-                            <!-- item-->
+                            {{--  <!-- item-->  --}}
                             <div class="dropdown-header noti-title">
                                 <h6 class="text-overflow m-0">Welcome !</h6>
                             </div>
 
-                            <!-- item-->
+                            {{--  <!-- item-->  --}}
                             <a href="{{ route('profile.edit') }}" class="dropdown-item notify-item">
                                 <i class="fe-user"></i>
                                 <span>My Account</span>
                             </a>
                             <div class="dropdown-divider"></div>
-                            <!-- item-->
+                            {{--  <!-- item-->  --}}
                             <form method="POST" action="{{ route('logout') }}" class="dropdown-item notify-item">
                                 @csrf
                                 <button type="submit" style="border: none; background: none; cursor: pointer;">

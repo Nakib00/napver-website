@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\about;
 
 class aboutController extends Controller
@@ -13,7 +14,8 @@ class aboutController extends Controller
     public function index()
     {
         //
-        return view('admin.about.about');
+        $about = about::all();
+        return view('admin.about.about', ['about' => $about]);
     }
 
     /**
@@ -30,31 +32,31 @@ class aboutController extends Controller
      */
     public function store(Request $request)
     {
-        // validation
-        $data = $request->validate([
-            'title' => 'required|string',
-            'shortDescription' => 'required|string',
-            'description' => 'nullable|string',
-            'image' => 'nullable|mimes:png,jpg,jpeg,webp',
-
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Max file size is 2MB
+            'shortsummary' => 'required|string',
+            'description' => 'required|string',
         ]);
-        // image handling
-        if ($request->has('image')) {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
 
-            $filename = time() . '.' . $extension;
-            $path = 'uploads/image/about';
-            $file->move($path, $filename);
-
-            // Save the file path in the database
-            $data['image'] = $path . '/' . $filename;
+        // Handle file upload
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('public/uploads/image/about');
+            // Get the public path of the stored file
+            $imageUrl = asset(str_replace('public', 'storage', $imagePath));
         }
 
+        // Save data to database
+        $about = new about();
+        $about->title = $validatedData['title'];
+        $about->image = $imageUrl ?? null; // If there's no image uploaded, set to null
+        $about->shortDescription = $validatedData['shortsummary'];
+        $about->description = $validatedData['description'];
+        $about->save();
 
-        About::create($data);
-
-        return redirect()->route('about.index')->with('success', 'About information stored successfully.');
+        // Redirect back with a success message or any other response
+        return redirect()->back()->with('success', 'About added successfully.');
     }
 
 
@@ -72,6 +74,8 @@ class aboutController extends Controller
     public function edit(string $id)
     {
         //
+        $aboutdata = about::findOrFail($id);
+        return view('admin.about.edit', ['aboutdata' => $aboutdata]);
     }
 
     /**
@@ -79,7 +83,41 @@ class aboutController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'shortsummary' => 'required|string',
+            'description' => 'required|string',
+        ]);
+
+        // Find the about model by ID
+        $about = about::findOrFail($id);
+
+        // Update the model with the validated data
+        $about->title = $validatedData['title'];
+        $about->shortDescription     = $validatedData['shortsummary'];
+        $about->description = $validatedData['description'];
+
+        // Handle file upload if a new image is provided
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('public/uploads/image/about');
+            $imageUrl = asset(str_replace('public', 'storage', $imagePath));
+
+            // Delete old image if it exists
+            if ($about->image) {
+                Storage::delete(str_replace('storage', 'public', $about->image));
+            }
+
+            // Update image URL
+            $about->image = $imageUrl;
+        }
+
+        // Save the updated model
+        $about->save();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'About updated successfully.');
     }
 
     /**
