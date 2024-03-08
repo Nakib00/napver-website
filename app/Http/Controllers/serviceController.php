@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use App\Models\service;
 
 class serviceController extends Controller
 {
@@ -12,7 +14,8 @@ class serviceController extends Controller
     public function index()
     {
         //
-        return view('admin.service.service');
+        $service = service::all();
+        return view('admin.service.service', ['service' => $service]);
     }
 
     /**
@@ -29,7 +32,42 @@ class serviceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Max file size is 2MB
+            'description' => 'required|string',
+            'status' => 'required',
+
+        ]);
+
+        // Handle file upload
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('public/uploads/image/service');
+            // Get the public path of the stored file
+            $imageUrl = asset(str_replace('public', 'storage', $imagePath));
+        }
+
+        // Save data to database
+        $service = new service();
+        $service->title = $validatedData['title'];
+        $service->image = $imageUrl ?? null; // If there's no image uploaded, set to null
+        $service->description = $validatedData['description'];
+        $service->status = $validatedData['status'];
+        $service->save();
+
+        // Redirect back with a success message or any other response
+        return redirect()->back()->with('success', 'Service added successfully.');
+    }
+
+    // service status change
+    public function changestatus($id, $status)
+    {
+        $servicestatuse = service::findOrFail($id);
+        $servicestatuse->status = $status;
+        $servicestatuse->save();
+
+        return redirect()->back()->with('success', 'Service status changed successfully.');
     }
 
     /**
@@ -38,6 +76,8 @@ class serviceController extends Controller
     public function show(string $id)
     {
         //
+        $servicedata = service::findOrFail($id);
+        return view('admin.service.show', ['servicedata' => $servicedata]);
     }
 
     /**
@@ -46,6 +86,8 @@ class serviceController extends Controller
     public function edit(string $id)
     {
         //
+        $servicedata = service::findOrFail($id);
+        return view('admin.service.edit', ['servicedata' => $servicedata]);
     }
 
     /**
@@ -54,6 +96,39 @@ class serviceController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'description' => 'required|string',
+        ]);
+
+        // Find the about model by ID
+        $service = service::findOrFail($id);
+
+        // Update the model with the validated data
+        $service->title = $validatedData['title'];
+        $service->description = $validatedData['description'];
+
+        // Handle file upload if a new image is provided
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('public/uploads/image/seservice');
+            $imageUrl = asset(str_replace('public', 'storage', $imagePath));
+
+            // Delete old image if it exists
+            if ($service->image) {
+                Storage::delete(str_replace('storage', 'public', $service->image));
+            }
+
+            // Update image URL
+            $service->image = $imageUrl;
+        }
+
+        // Save the updated model
+        $service->save();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Service updated successfully.');
     }
 
     /**
@@ -62,5 +137,9 @@ class serviceController extends Controller
     public function destroy(string $id)
     {
         //
+        $service = service::findOrFail($id);
+        $service->delete();
+
+        return redirect()->back()->with('success', 'Delete Service successfully.');
     }
 }

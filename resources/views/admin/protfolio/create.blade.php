@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">
-                <h4 class="page-title">Service</h4>
+                <h4 class="page-title">Protfolio</h4>
             </div>
         </div>
     </div>
@@ -17,15 +17,31 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Add Services</div>
+                    <div class="card-header">Add Protfolio</div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('service.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="" enctype="multipart/form-data">
                             @csrf
 
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">Title</label>
                                 <div class="col-md-6">
                                     <input id="name" type="text" class="form-control" name="title" required
+                                        autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="name" class="col-md-4 col-form-label text-md-right">Clint Name</label>
+                                <div class="col-md-6">
+                                    <input id="name" type="text" class="form-control" name="clintname" required
+                                        autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="name" class="col-md-4 col-form-label text-md-right">Project URL</label>
+                                <div class="col-md-6">
+                                    <input id="name" type="text" class="form-control" name="url" required
                                         autofocus>
                                 </div>
                             </div>
@@ -38,11 +54,23 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="description" class="col-md-4 col-form-label text-md-right">Description</label>
+                                <label for="category" class="col-md-4 col-form-label text-md-right">Category</label>
                                 <div class="col-md-6">
-                                    <textarea id="description" class="form-control" name="description" required></textarea>
+                                    <select id="category" class="form-control" name="category" required>
+                                        <option value="">Select Category</option>
+                                        @foreach ($category as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
+
+                            {{--  CK editor section  --}}
+                            <div class="form-group mb-3">
+                                <label for="product-name">Description</label>
+                                <textarea class="form-control" id="editor" name="description"></textarea>
+                            </div>
+
 
                             <div class="form-group row">
                                 <label for="status" class="col-md-4 col-form-label text-md-right">Status</label>
@@ -63,7 +91,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">Save</button>
-                                    <a href="{{ route('service.index') }}" class="btn btn-secondary">Back</a>
+                                    <a href="{{ route('protfolio.index') }}" class="btn btn-secondary">Back</a>
                                 </div>
                             </div>
                         </form>

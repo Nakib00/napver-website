@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use App\Http\Controllers\{appController,aboutController,contactController,messageController,protfolioController,serviceController,teamController};
+use App\Http\Controllers\{appController, aboutController, contactController, messageController, protfolioController, serviceController, teamController};
 use App\Http\Controllers\SslCommerzPaymentController;
 
 
@@ -45,22 +45,37 @@ Route::get('/profile', function () {
 
 // Email verification end
 
-Route::middleware(['auth', 'verified'])->group(function (){
-    Route::prefix('/dashboard')->group(function (){
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::prefix('/dashboard')->group(function () {
+        // About routes start
         Route::resource('/about', aboutController::class);
+        // About routes end
+
+        // Service route starts
         Route::resource('/service', serviceController::class);
+        Route::get('service/{id}/status/change/{status}', [serviceController::class, 'changestatus'])->name('service.status.change');
+        // Service route ends
 
         // teams route starts
         Route::resource('/team', TeamController::class);
         Route::post('/team/store', [TeamController::class, 'store'])->name('teams.store');
         Route::get('team/{id}/status/change/{status}', [teamController::class, 'teamstatus'])->name('team.status.change');
         // teams category routes
-        Route::post('/team',[teamController::class,'creatteamcategory'])->name('creatteamcategory');
+        Route::post('/team', [teamController::class, 'creatteamcategory'])->name('creatteamcategory');
         Route::get('teamcategory/{id}/status/change/{status}', [teamController::class, 'changestatus'])->name('category.status.change');
         Route::delete('teamcategory/{id}/delete', [teamController::class, 'category_delete'])->name('category.delete');
         // teams route ends
 
+        // protfolio routes starting
         Route::resource('/protfolio', protfolioController::class);
+
+        // protfolio  category routes
+        Route::post('/protfolio', [protfolioController::class, 'creatcategory'])->name('creatcategory');
+        Route::get('protfoliocategory/{id}/status/change/{status}', [protfolioController::class, 'changestatus'])->name('category.status.change');
+        Route::delete('protfoliocategory/{id}/delete', [protfolioController::class, 'category_delete'])->name('category.delete');
+        // protfolio  route ends
+
+        // protfolio routes ending
         Route::resource('/contact', contactController::class);
         Route::resource('/message', messageController::class);
     });
@@ -72,7 +87,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 // Admin route end
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 
 
