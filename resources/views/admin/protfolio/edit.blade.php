@@ -17,39 +17,41 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Add Protfolio</div>
+                    <div class="card-header">Edit Protfolio</div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('protfolio.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('protfolio.update', $protfoliodata->id) }}"
+                            enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
 
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">Title</label>
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="title" required
-                                        autofocus>
+                                    <input id="name" type="text" class="form-control" name="title" autofocus
+                                        value="{{ $protfoliodata->title }}">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">Clint Name</label>
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="clintname" required
-                                        autofocus>
+                                    <input id="name" type="text" class="form-control" name="clintname" autofocus
+                                        value="{{ $protfoliodata->clientname }}">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">Project URL</label>
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="url" required
-                                        autofocus>
+                                    <input id="name" type="text" class="form-control" name="url" autofocus
+                                        value="{{ $protfoliodata->url }}">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="image" class="col-md-4 col-form-label text-md-right">Images</label>
                                 <div class="col-md-6">
-                                    <input id="image" type="file" class="form-control-file" name="images[]" multiple required>
+                                    <input id="image" type="file" class="form-control-file" name="images[]" multiple>
                                 </div>
                             </div>
 
@@ -68,29 +70,12 @@
                             {{--  CK editor section  --}}
                             <div class="form-group mb-3">
                                 <label for="product-name">Description</label>
-                                <textarea class="form-control" id="editor" name="description"></textarea>
-                            </div>
-
-
-                            <div class="form-group row">
-                                <label for="status" class="col-md-4 col-form-label text-md-right">Status</label>
-                                <div class="col-md-6">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="status" id="active"
-                                            value="1" checked>
-                                        <label class="form-check-label" for="active">Active</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="status" id="inactive"
-                                            value="0">
-                                        <label class="form-check-label" for="inactive">Inactive</label>
-                                    </div>
-                                </div>
+                                <textarea class="form-control" id="editor" name="description">{{ $protfoliodata->description }}</textarea>
                             </div>
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
                                     <a href="{{ route('protfolio.index') }}" class="btn btn-secondary">Back</a>
                                 </div>
                             </div>

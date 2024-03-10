@@ -3,7 +3,7 @@
            <div class="container" data-aos="fade-up">
                <div class="section-title">
                    <h2>Contact</h2>
-                   <p>Get in Touch – We're Here to Assist You.</p>
+                   <p>Get in Touch – We are Here to Assist You.</p>
                </div>
 
                <div class="row">
@@ -37,9 +37,14 @@
 
                <div class="row justify-content-center">
                    <div class="col-lg-6">
-                       <form
-                           action="https://script.google.com/macros/s/AKfycbxBSH1g0QeWNg-XmioDezVB7idv0NBVdAZ3AUSf29aFEz-oY1dsVtctZB03xwCGdodziA/exec"
-                           method="post" role="form" class="php-email-form">
+                       @if (session('success'))
+                           <div class="alert alert-success">
+                               {{ session('success') }}
+                           </div>
+                       @endif
+
+                       <form method="POST" action="{{ route('message.store') }}"  class="php-email-form">
+                           @csrf
                            <div class="row">
                                <div class="col-md-6 form-group">
                                    <input type="text" name="name" class="form-control" id="name"
@@ -50,19 +55,14 @@
                                        placeholder="Your Email" required />
                                </div>
                                <div class="form-group mt-3">
-                                   <input type="phone" class="form-control" name="phone" id="phone"
+                                   <input type="tel" class="form-control" name="phone" id="phone"
                                        placeholder="Your phone number" required />
                                </div>
                            </div>
                            <div class="form-group mt-3">
                                <textarea class="form-control" name="comment" id="comment" rows="5" placeholder="Message" required></textarea>
                            </div>
-                           <div class="my-3">
-                               <div class="sent-message">
-                                   Your message has been sent. Thank you!
-                               </div>
-                           </div>
-                           <div class="text-center">
+                           <div class="text-center m-2">
                                <button type="submit">Send Message</button>
                            </div>
                        </form>
@@ -70,4 +70,4 @@
                </div>
            </div>
        </section>
-       <!-- End Contact Section -->
+       {{--  <!-- End Contact Section -->  --}}

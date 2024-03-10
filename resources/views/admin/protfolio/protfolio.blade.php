@@ -57,12 +57,12 @@
                                         <td>
                                             @if ($item->status == 1)
                                                 <a
-                                                    href="{{ route('category.status.change', ['id' => $item->id, 'status' => '0']) }}">
+                                                    href="{{ route('procategory.status.change', ['id' => $item->id, 'status' => '0']) }}">
                                                     <h5><span class="badge badge-info">Active</span></h5>
                                                 </a>
                                             @else
                                                 <a
-                                                    href="{{ route('category.status.change', ['id' => $item->id, 'status' => '1']) }}">
+                                                    href="{{ route('procategory.status.change', ['id' => $item->id, 'status' => '1']) }}">
                                                     <h5><span class="badge badge-danger">Inactive</span></h5>
                                                 </a>
                                             @endif
@@ -88,7 +88,7 @@
     </div>
     {{--  category end  --}}
 
-    {{--  Team add start  --}}
+    {{--  protfolio add start  --}}
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">
@@ -115,7 +115,6 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th>Title</th>
-                                    <th>Image</th>
                                     <th>Date</th>
                                     <th>Category</th>
                                     <th>Status</th>
@@ -123,32 +122,36 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                @foreach ($protfolio as $item)
+                                    <tr>
 
-                                    <td><a href="" class="text-body font-weight-bold">Nakib</a>
-                                    </td>
-                                    <td>
-                                        <a href="ecommerce-product-detail.html"><img
-                                                src="{{ asset('assetsAdmin/images/products/product-1.png') }}"
-                                                alt="product-img" height="32" /></a>
-                                    </td>
-                                    <td>
-                                        August 05 2018
-                                    </td>
-                                    <td>
-                                        IT
-                                    </td>
-                                    <td>
-                                        <h5><span class="badge badge-info">Active</span></h5>
-                                    </td>
-                                    <td>
-                                        <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
-                                        <a href="javascript:void(0);" class="action-icon"> <i
-                                                class="mdi mdi-square-edit-outline"></i></a>
-                                        <a href="javascript:void(0);" class="action-icon"> <i
-                                                class="mdi mdi-delete"></i></a>
-                                    </td>
-                                </tr>
+                                        <td><a href="" class="text-body font-weight-bold">{{ $item->title }}</a>
+                                        </td>
+                                        <td>
+                                            {{ $item->created_at }}
+                                        </td>
+                                        <td>
+                                            {{ $item->category->name }}
+                                        </td>
+                                        <td>
+                                            <h5><span class="badge badge-info">Active</span></h5>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('protfolio.show', $item->id) }}" class="action-icon"> <i
+                                                    class="mdi mdi-eye"></i></a>
+                                            <a href="{{ route('protfolio.edit', $item->id) }}" class="action-icon"> <i
+                                                    class="mdi mdi-square-edit-outline"></i></a>
+                                            <form action="{{ route('protfolio.destroy', $item->id) }}" method="POST"
+                                                style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-link action-icon">
+                                                    <i class="mdi mdi-delete"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -156,7 +159,7 @@
             </div> <!-- end card-->
         </div> <!-- end col -->
     </div>
-    {{--  Team end  --}}
+    {{--  protfolio end  --}}
 
     {{--  <!-- Popup Modal -->  --}}
     <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel"

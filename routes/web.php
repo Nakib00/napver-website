@@ -4,13 +4,14 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use App\Http\Controllers\{appController, aboutController, contactController, messageController, protfolioController, serviceController, teamController};
+use App\Http\Controllers\{appController, aboutController, contactController, messageController, protfolioController, serviceController, teamController, settingController};
 use App\Http\Controllers\SslCommerzPaymentController;
 
 
 // Website Route start
 Route::prefix('/')->group(function () {
     Route::get('', [appController::class, 'Index'])->name('index');
+    Route::post('/message', [appController::class, 'store'])->name('message.store');
 });
 
 // Website route end
@@ -59,25 +60,27 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // teams route starts
         Route::resource('/team', TeamController::class);
         Route::post('/team/store', [TeamController::class, 'store'])->name('teams.store');
-        Route::get('team/{id}/status/change/{status}', [teamController::class, 'teamstatus'])->name('team.status.change');
         // teams category routes
         Route::post('/team', [teamController::class, 'creatteamcategory'])->name('creatteamcategory');
-        Route::get('teamcategory/{id}/status/change/{status}', [teamController::class, 'changestatus'])->name('category.status.change');
+        Route::get('teamcategory/{id}/status/change/{status}', [teamController::class, 'changestatus'])->name('teamcategory.status.change');
+        Route::get('team/{id}/status/change/{status}', [teamController::class, 'teamstatus'])->name('team.status.change');
         Route::delete('teamcategory/{id}/delete', [teamController::class, 'category_delete'])->name('category.delete');
         // teams route ends
 
         // protfolio routes starting
         Route::resource('/protfolio', protfolioController::class);
+        Route::post('/store', [protfolioController::class, 'store'])->name('protfolio.store');
 
         // protfolio  category routes
         Route::post('/protfolio', [protfolioController::class, 'creatcategory'])->name('creatcategory');
-        Route::get('protfoliocategory/{id}/status/change/{status}', [protfolioController::class, 'changestatus'])->name('category.status.change');
+        Route::get('protfoliocategory/{id}/status/change/{status}', [protfolioController::class, 'changestatus'])->name('procategory.status.change');
         Route::delete('protfoliocategory/{id}/delete', [protfolioController::class, 'category_delete'])->name('category.delete');
         // protfolio  route ends
 
         // protfolio routes ending
         Route::resource('/contact', contactController::class);
-        Route::resource('/message', messageController::class);
+
+        Route::resource('/setting', settingController::class);
     });
 });
 

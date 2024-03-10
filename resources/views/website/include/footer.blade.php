@@ -1,4 +1,4 @@
-<!-- ======= Footer ======= -->
+{{--  <!-- ======= Footer ======= -->  --}}
 <footer id="footer">
     <div class="footer-top">
         <div class="container">
@@ -39,17 +39,6 @@
                         </li>
                     </ul>
                 </div>
-
-                <div class="col-lg-4 col-md-6 footer-newsletter">
-                    <h4>Join Our Newsletter</h4>
-                    <p>
-                        Stay Informed and Connected – Subscribe to Our Newsletter for
-                        Exclusive Updates and Insights
-                    </p>
-                    <form>
-                        <input type="email" name="email" /><input type="submit" value="Subscribe" />
-                    </form>
-                </div>
             </div>
         </div>
     </div>
@@ -70,13 +59,13 @@
         </div>
     </div>
 </footer>
-<!-- End Footer -->
+{{--  <!-- End Footer -->  --}}
 
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
         class="bi bi-arrow-up-short"></i></a>
 <div id="preloader"></div>
 
-<!-- Vendor JS Files -->
+{{--  <!-- Vendor JS Files -->  --}}
 <script src="script.js" type="module"></script>
 <script src="{{ asset('assets/vendor/purecounter/purecounter_vanilla.js')}}"></script>
 <script src="{{ asset('assets/vendor/aos/aos.js')}}"></script>
@@ -86,7 +75,7 @@
 <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
 <script src="{{ asset('assets/vendor/php-email-form/validate.js')}}"></script>
 
-<!-- Template Main JS File -->
+{{--  <!-- Template Main JS File -->  --}}
 <script src="{{ asset('assets/js/main.js')}}"></script>
 </body>
 

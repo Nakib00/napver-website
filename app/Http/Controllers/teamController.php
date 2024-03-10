@@ -141,7 +141,7 @@ class teamController extends Controller
         $team = team::findOrFail($id);
         $team->delete();
 
-        return redirect()->back()->with('success', 'Delete Category successfully.');
+        return redirect()->back()->with('success', 'Delete Team successfully.');
     }
 
     // Team status change

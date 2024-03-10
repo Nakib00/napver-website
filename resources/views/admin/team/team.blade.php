@@ -58,12 +58,12 @@
                                         <td>
                                             @if ($category->status == 1)
                                                 <a
-                                                    href="{{ route('category.status.change', ['id' => $category->id, 'status' => '0']) }}">
+                                                    href="{{ route('teamcategory.status.change', ['id' => $category->id, 'status' => '0']) }}">
                                                     <h5><span class="badge badge-info">Active</span></h5>
                                                 </a>
                                             @else
                                                 <a
-                                                    href="{{ route('category.status.change', ['id' => $category->id, 'status' => '1']) }}">
+                                                    href="{{ route('teamcategory.status.change', ['id' => $category->id, 'status' => '1']) }}">
                                                     <h5><span class="badge badge-danger">Inactive</span></h5>
                                                 </a>
                                             @endif
