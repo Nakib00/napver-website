@@ -81,10 +81,6 @@
                             <p>We offer professional video editing services.</p>
                         </div>
                     </div>
-                    <div class="text-center">
-                        <a href="services.html" class="read-more">More Details <i
-                                class="bi bi-long-arrow-right"></i></a>
-                    </div>
                 </div>
             </div>
         </section>

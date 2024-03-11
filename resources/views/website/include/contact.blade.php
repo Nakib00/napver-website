@@ -34,22 +34,16 @@
                        </div>
                    </div>
                </div>
-
                <div class="row justify-content-center">
                    <div class="col-lg-6">
-                       @if (session('success'))
-                           <div class="alert alert-success">
-                               {{ session('success') }}
-                           </div>
-                       @endif
-
-                       <form method="POST" action="{{ route('message.store') }}"  class="php-email-form">
+                       <form method="POST" action="{{ route('contact.store') }}" class="email-form">
                            @csrf
                            <div class="row">
                                <div class="col-md-6 form-group">
                                    <input type="text" name="name" class="form-control" id="name"
                                        placeholder="Your Name" required />
                                </div>
+
                                <div class="col-md-6 form-group mt-3 mt-md-0">
                                    <input type="email" class="form-control" name="email" id="email"
                                        placeholder="Your Email" required />
@@ -64,6 +58,9 @@
                            </div>
                            <div class="text-center m-2">
                                <button type="submit">Send Message</button>
+                               @if (session('success'))
+                                   <p class="text-success">{{ session('success') }}</p>
+                               @endif
                            </div>
                        </form>
                    </div>

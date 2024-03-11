@@ -14,25 +14,12 @@ class appController extends Controller
         return view('website.index');
     }
 
-    public function store(Request $request)
+    public function teams()
     {
-        // Validate the incoming request data
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-            'phone' => 'required|string|max:255',
-            'message' => 'required|string',
-        ]);
+        return view('website.team');
+    }
 
-        // Save data to the database
-        $message = new message();
-        $message->name = $validatedData['name'];
-        $message->email = $validatedData['email'];
-        $message->phone = $validatedData['phone'];
-        $message->message = $validatedData['message'];
-        $message->save();
-
-        // Redirect back with a success message or any other response
-        return redirect()->back()->with('success', 'Your message has been sent. Thank you!');
+    public function protfolio(){
+        return view('website.protfolio');
     }
 }

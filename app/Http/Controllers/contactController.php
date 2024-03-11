@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\message;
 
 class contactController extends Controller
 {
@@ -12,7 +13,8 @@ class contactController extends Controller
     public function index()
     {
         //
-        return view('admin.contact.contact');
+        $message = message::all();
+        return view('admin.contact.contact', ['message' => $message]);
     }
 
     /**
@@ -29,6 +31,24 @@ class contactController extends Controller
     public function store(Request $request)
     {
         //
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|max:255',
+            'phone' => 'required|string|max:255',
+            'comment' => 'required|string',
+        ]);
+
+        // Save data to database
+        $message = new message();
+        $message->name = $validatedData['name'];
+        $message->email = $validatedData['email'];
+        $message->phone = $validatedData['phone'];
+        $message->message = $validatedData['comment'];
+        $message->save();
+
+        // Redirect back with a success message or any other response
+        return redirect()->back()->with('success', 'Your message has been sent. Thank you!');
     }
 
     /**
@@ -37,6 +57,8 @@ class contactController extends Controller
     public function show(string $id)
     {
         //
+        $message = message::findOrFail($id);
+        return view('admin.contact.show', ['message' => $message]);
     }
 
     /**

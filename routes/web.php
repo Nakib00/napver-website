@@ -12,6 +12,8 @@ use App\Http\Controllers\SslCommerzPaymentController;
 Route::prefix('/')->group(function () {
     Route::get('', [appController::class, 'Index'])->name('index');
     Route::post('/message', [appController::class, 'store'])->name('message.store');
+    Route::get('/teams',[appController::class, 'teams'])->name('teams.index');
+    Route::get('protfolio',[appController::class, 'protfolio'])->name('protfolio.page');
 });
 
 // Website route end
@@ -92,18 +94,3 @@ Route::middleware('auth')->group(function () {
 // Admin route end
 require __DIR__ . '/auth.php';
 
-
-
-// SSLCOMMERZ Start
-Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
-Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
-
-Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
-Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
-
-Route::post('/success', [SslCommerzPaymentController::class, 'success']);
-Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
-Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
-
-Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
-//SSLCOMMERZ END

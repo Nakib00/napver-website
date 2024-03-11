@@ -53,7 +53,7 @@
 
 
         {{-- Include protfolio --}}
-        @include('website.include.portfolio')
+        {{--  @include('website.include.portfolio')  --}}
 
 
         {{-- Include Contact --}}
