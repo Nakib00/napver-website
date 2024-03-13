@@ -1,4 +1,4 @@
-       <!-- ======= Portfolio Section ======= -->
+       {{--  <!-- ======= Portfolio Section ======= -->  --}}
        <section id="portfolio" class="portfolio">
            <div class="container" data-aos="fade-up">
                <div class="section-title">
@@ -158,4 +158,4 @@
                </div>
            </div>
        </section>
-       <!-- End Portfolio Section -->
+       {{--  <!-- End Portfolio Section -->  --}}

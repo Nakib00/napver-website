@@ -14,6 +14,7 @@ Route::prefix('/')->group(function () {
     Route::post('/message', [appController::class, 'store'])->name('message.store');
     Route::get('/teams',[appController::class, 'teams'])->name('teams.index');
     Route::get('protfolio',[appController::class, 'protfolio'])->name('protfolio.page');
+    Route::get('/details/{id}',[appController::class, 'protshow'])->name('protshow.page');
 });
 
 // Website route end

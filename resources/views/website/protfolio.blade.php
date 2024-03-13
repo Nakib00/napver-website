@@ -23,28 +23,36 @@
         <section id="service-details" class="portfolio-details">
 
             <div class="container">
-                <div class="service-main">
+                @foreach ($protfolio as $item)
                     <div class="service-main">
+                        <div class="service-main">
                             <div class="row pt-4">
                                 <div class="col-lg-6 order-1 order-lg-2 aos-init aos-animate" data-aos="zoom-in"
                                     data-aos-delay="150">
-                                    <img src="assets\img\services\web design.png" class="img-fluid" alt="">
+                                    <a href="{{ route('protshow.page', $item->id) }}">
+                                        @foreach (json_decode($item->image) as $imageUrl)
+                                            <div class="m-2">
+                                                <img src="{{ $imageUrl }}" alt="Service Image" width="500"
+                                                    height="300">
+                                            </div>
+                                        @endforeach
+                                    </a>
                                 </div>
                                 <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content aos-init aos-animate"
                                     data-aos="fade-right">
-                                    <a href=""><h3>Website Development</h3></a>
+                                    <a href="{{ route('protshow.page', $item->id) }}">
+                                        <h3>{{ $item->title }}</h3>
+                                    </a>
                                     <p class="fst-italic">
-                                        We create custom websites tailored just for you, turning your ideas into stunning
-                                        designs. We build efficient web apps to streamline your business, providing unique
-                                        solutions to meet your needs. Additionally, we specialize in customized websites for
-                                        educational institutions and online stores that drive sales, offering secure payment
-                                        options and easy product management.
+                                        {!! $item->description !!}
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
+
+            </div>
             </div>
         </section>
         {{--  <!-- End services Details Section -->  --}}

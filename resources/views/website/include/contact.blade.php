@@ -1,39 +1,39 @@
-       <!-- ======= Contact Section ======= -->
+       {{--  <!-- ======= Contact Section ======= -->  --}}
        <section id="contact" class="contact section-bg">
            <div class="container" data-aos="fade-up">
                <div class="section-title">
                    <h2>Contact</h2>
                    <p>Get in Touch – We are Here to Assist You.</p>
                </div>
+               @foreach ($address as $item)
+                   <div class="row">
+                       <div class="col-lg-6">
+                           <div class="info-box mb-4">
+                               <i class="bx bx-map mt-4"></i>
+                               <h3>Our Address</h3>
+                               <p>{{ $item->address }}</p>
+                           </div>
+                       </div>
 
-               <div class="row">
-                   <div class="col-lg-6">
-                       <div class="info-box mb-4">
-                           <i class="bx bx-map mt-4"></i>
-                           <h3>Our Address</h3>
-                           <p>Bashundhara Residential Area, Dhaka</p>
+                       <div class="col-lg-3 col-md-6">
+                           <div class="info-box mb-4">
+                               <i class="bx bx-envelope mt-4"></i>
+                               <h3>Email Us</h3>
+                               <p>{{ $item->email }}</p>
+                           </div>
+                       </div>
+
+                       <div class="col-lg-3 col-md-6">
+                           <div class="info-box mb-4">
+                               <i class="bx bx-phone-call"></i>
+                               <h3>Call Us</h3>
+                               <p>
+                                   {{ $item->phone }} <br />
+                               </p>
+                           </div>
                        </div>
                    </div>
-
-                   <div class="col-lg-3 col-md-6">
-                       <div class="info-box mb-4">
-                           <i class="bx bx-envelope mt-4"></i>
-                           <h3>Email Us</h3>
-                           <p>zanitbd@gmail.com</p>
-                       </div>
-                   </div>
-
-                   <div class="col-lg-3 col-md-6">
-                       <div class="info-box mb-4">
-                           <i class="bx bx-phone-call"></i>
-                           <h3>Call Us</h3>
-                           <p>
-                               +880 1627199815 <br />
-                               +880 1619996782
-                           </p>
-                       </div>
-                   </div>
-               </div>
+               @endforeach
                <div class="row justify-content-center">
                    <div class="col-lg-6">
                        <form method="POST" action="{{ route('contact.store') }}" class="email-form">
