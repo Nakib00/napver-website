@@ -68,7 +68,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <form action="{{ route('category.delete', $item->id) }}" method="POST"
+                                            <form action="{{ route('pcategory.delete', $item->id) }}" method="POST"
                                                 style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')

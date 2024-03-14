@@ -70,7 +70,7 @@
                                         </td>
                                         <td>
 
-                                            <form action="{{ route('category.delete', $category->id) }}" method="POST"
+                                            <form action="{{ route('tcategory.delete', $category->id) }}" method="POST"
                                                 style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')

@@ -13,8 +13,9 @@ class team extends Model
 
     public function category()
     {
-        return $this->belongsTo(teamCategory::class);
+        return $this->belongsTo(teamCategory::class, 'category_id', 'id');
     }
+
 }
 
 

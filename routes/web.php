@@ -67,7 +67,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/team', [teamController::class, 'creatteamcategory'])->name('creatteamcategory');
         Route::get('teamcategory/{id}/status/change/{status}', [teamController::class, 'changestatus'])->name('teamcategory.status.change');
         Route::get('team/{id}/status/change/{status}', [teamController::class, 'teamstatus'])->name('team.status.change');
-        Route::delete('teamcategory/{id}/delete', [teamController::class, 'category_delete'])->name('category.delete');
+        Route::delete('teamcategory/{id}/delete', [teamController::class, 'category_delete'])->name('tcategory.delete');
         // teams route ends
 
         // protfolio routes starting
@@ -77,7 +77,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // protfolio  category routes
         Route::post('/protfolio', [protfolioController::class, 'creatcategory'])->name('creatcategory');
         Route::get('protfoliocategory/{id}/status/change/{status}', [protfolioController::class, 'changestatus'])->name('procategory.status.change');
-        Route::delete('protfoliocategory/{id}/delete', [protfolioController::class, 'category_delete'])->name('category.delete');
+        Route::delete('protfoliocategory/{id}/delete', [protfolioController::class, 'category_delete'])->name('pcategory.delete');
         // protfolio  route ends
 
         // protfolio routes ending

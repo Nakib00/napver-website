@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{about, setting, service, protfolio};
+use App\Models\{about, setting, service, protfolio,teamcategory,team};
 
 class appController extends Controller
 {
@@ -20,14 +20,16 @@ class appController extends Controller
 
     public function teams()
     {
-        $address = Setting::select('address', 'phone', 'email', 'hero_title', 'hero_subtitle')->get();
-        return view('website.team', compact('address'));
+        $teamcategory = teamcategory::all();
+        $teams = team::all();
+        $address = Setting::select('address', 'phone', 'email')->get();
+        return view('website.team', compact('address','teamcategory','teams'));
     }
 
     public function protfolio()
     {
-        $protfolio = protfolio::select('title', 'description', 'image', 'clientname', 'url', 'category_id', 'status', 'id','	created_at')->get();
-        $address = Setting::select('address', 'phone', 'email', 'hero_title', 'hero_subtitle')->get();
+        $protfolio = protfolio::all();
+        $address = Setting::select('address', 'phone', 'email')->get();
         return view('website.protfolio', compact('address', 'protfolio'));
     }
 
@@ -35,7 +37,7 @@ class appController extends Controller
     {
 
         $protfolio = protfolio::findOrFail($id);
-        $address = Setting::select('address', 'phone', 'email', 'hero_title', 'hero_subtitle')->get();
+        $address = Setting::select('address', 'phone', 'email')->get();
 
         return view('website.portfolio-details', compact('address','protfolio'));
     }

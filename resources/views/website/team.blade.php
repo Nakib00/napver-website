@@ -50,7 +50,7 @@
     </style>
 
     <main id="main">
-        <!-- ======= Breadcrumbs ======= -->
+        {{--  <!-- ======= Breadcrumbs ======= -->  --}}
         <section id="breadcrumbs" class="breadcrumbs">
             <div class="container">
 
@@ -63,9 +63,10 @@
                 </div>
 
             </div>
-        </section><!-- End Breadcrumbs -->
+        </section>
+        {{--  <!-- End Breadcrumbs -->  --}}
 
-        <!-- ======= Portfolio Section ======= -->
+        {{--  <!-- ======= Portfolio Section ======= -->  --}}
         <section id="portfolio" class="portfolio">
             <div class="container" data-aos="fade-up">
                 <div class="section-title">
@@ -79,127 +80,87 @@
                 <div class="row">
                     <div class="col-lg-12 d-flex justify-content-center">
                         <ul id="portfolio-flters">
-                            <li data-filter=".filter-app" class="filter-btn filter-active" data-target="app">App</li>
-                            <li data-filter=".filter-card" class="filter-btn" data-target="card">Card</li>
-                            <li data-filter=".filter-web" class="filter-btn" data-target="web">Web</li>
+                            <li data-filter=".filter-app" class="filter-btn filter-active" data-target="app">All</li>
+                            {{--  <!-- Show all initially -->  --}}
+                            @foreach ($teamcategory as $item)
+                                <li data-filter=".filter-card" class="filter-btn" data-target="{{ $item->name }}">
+                                    {{ $item->name }}</li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
-
                 <div class="content">
-                    <div class="filter-content filter-app active">
-                        <div class="container">
-                            <div class="row mx-5">
-                                <div class="col-sm-3 my-3">
-                                    <div class="text-center">
-                                        <img class="hero-img team-img" src="assets/img/portfolio/portfolio-2.jpg" />
-                                        <div class="mt-5">
-                                            <h3>Nakib</h3>
-                                            <p>Co-founder and CEO</p>
-                                            <p class="details-button mouse-pointer " data-target="details1">Show Details 1
-                                            </p>
-                                            <div id="details1" class="details">
-                                                <p>This is the details for option 1.</p>
+                    <div class="container">
+                        <div class="row mx-5 team-members">
+                            @foreach ($teamcategory as $category)
+                                @foreach ($category->teams as $team)
+                                    <div class="col-sm-3 my-3 filter-card {{ $category->name }}">
+                                        <div class="text-center">
+                                            <img class="hero-img team-img" src="{{ asset($team->image) }}" />
+                                            <div class="mt-5">
+                                                <h3>{{ $team->name }}</h3>
+                                                <p>{{ $team->designation }}</p>
+                                                <p class="details-button mouse-pointer"
+                                                    data-target="details{{ $team->id }}">Show Details</p>
+                                                <div id="details{{ $team->id }}" class="details" style="display: none;">
+                                                    <p>{{ $team->description }}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endforeach
+                            @endforeach
 
-                                <div class="col-sm-3 my-3">
-                                    <div class="text-center">
-                                        <img class="hero-img team-img" src="assets/img/portfolio/portfolio-3.jpg" />
-                                        <div class="mt-5">
-                                            <h3>Nakib</h3>
-                                            <p>Co-founder and CEO</p>
-                                            <p class="details-button mouse-pointer" data-target="details2">Show Details 2
-                                            </p>
-                                            <div id="details2" class="details">
-                                                <p>This is the details for option 2.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-3 my-3">
-                                    Column2
-                                </div>
-
-                                <div class="col-sm-3 my-3">
-                                    Column3
-                                </div>
-
-                                <div class="col-sm-3 my-3">
-                                    Column4
-                                </div>
-
-                                <div class="col-sm-3 my-3">
-                                    Column5
-                                </div>
-
-                                <div class="col-sm-3 my-3">
-                                    Column5
-                                </div>
-                                <div class="col-sm-3 my-3">
-                                    Column5
-                                </div>
-                            </div>
                         </div>
                     </div>
-
-                    <div class="filter-content filter-card">
-
-                    </div>
-                    <div class="filter-content filter-web">
-
-                    </div>
                 </div>
-
             </div>
         </section>
-        <!-- End Portfolio Section -->
+        {{--  <!-- End Portfolio Section -->  --}}
 
     </main>
     {{--  <!-- End #main --  --}}
     <script>
-        // for team section
-        document.addEventListener('DOMContentLoaded', function() {
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            const filterContents = document.querySelectorAll('.filter-content');
+        // JavaScript for filtering
+        document.addEventListener("DOMContentLoaded", function() {
+            const filterButtons = document.querySelectorAll(".filter-btn");
 
-            filterBtns.forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    const target = btn.getAttribute('data-target');
+            filterButtons.forEach(function(button) {
+                button.addEventListener("click", function() {
+                    const target = this.getAttribute("data-target");
+                    const teamMembers = document.querySelectorAll(".team-members .filter-card");
 
-                    // Remove active class from all buttons
-                    filterBtns.forEach(function(btn) {
-                        btn.classList.remove('filter-active');
+                    teamMembers.forEach(function(member) {
+                        if (target === "app" || member.classList.contains(target)) {
+                            member.style.display = "block";
+                        } else {
+                            member.style.display = "none";
+                        }
                     });
 
-                    // Add active class to clicked button
-                    btn.classList.add('filter-active');
-
-                    // Hide all content
-                    filterContents.forEach(function(content) {
-                        content.classList.remove('active');
+                    // Update active filter button
+                    filterButtons.forEach(function(btn) {
+                        btn.classList.remove("filter-active");
                     });
-
-                    // Show content based on clicked button
-                    const contentToShow = document.querySelector('.filter-content.filter-' +
-                        target);
-                    contentToShow.classList.add('active');
+                    this.classList.add("filter-active");
                 });
             });
         });
 
-        // learn more button
+        //see more button toggle
         document.addEventListener("DOMContentLoaded", function() {
-            var buttons = document.querySelectorAll('.details-button');
-            buttons.forEach(function(button) {
-                button.addEventListener('click', function() {
-                    var targetId = this.getAttribute('data-target');
-                    var target = document.getElementById(targetId);
-                    if (target) {
-                        target.style.display = target.style.display === 'block' ? 'none' : 'block';
+            const detailsButtons = document.querySelectorAll(".details-button");
+
+            detailsButtons.forEach(function(button) {
+                button.addEventListener("click", function() {
+                    const target = this.getAttribute("data-target");
+                    const detailsElement = document.getElementById(target);
+
+                    // Toggle visibility
+                    if (detailsElement.style.display === "none") {
+                        detailsElement.style.display = "block";
+                    } else {
+                        detailsElement.style.display = "none";
                     }
                 });
             });

@@ -92,44 +92,44 @@ class teamController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
-{
-    // Validate the incoming request data
-    $validatedData = $request->validate([
-        'name' => 'required|string|max:255',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'designation' => 'required|string|max:255',
-        'description' => 'required|string',
-        'category' => 'required|exists:teamcategories,id',
-    ]);
+    {
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'designation' => 'required|string|max:255',
+            'description' => 'required|string',
+            'category' => 'required|exists:teamcategories,id',
+        ]);
 
-    // Find the team by ID
-    $team = Team::findOrFail($id);
+        // Find the team by ID
+        $team = Team::findOrFail($id);
 
-    // Handle file upload if a new image is provided
-    if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('public/uploads/image/team');
-        // Get the public path of the stored file
-        $imageUrl = asset(str_replace('public', 'storage', $imagePath));
+        // Handle file upload if a new image is provided
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('public/uploads/image/team');
+            // Get the public path of the stored file
+            $imageUrl = asset(str_replace('public', 'storage', $imagePath));
 
-        // Delete old image if exists
-        if ($team->image) {
-            Storage::delete(str_replace('storage', 'public', $team->image));
+            // Delete old image if exists
+            if ($team->image) {
+                Storage::delete(str_replace('storage', 'public', $team->image));
+            }
+
+            // Update image URL
+            $team->image = $imageUrl;
         }
 
-        // Update image URL
-        $team->image = $imageUrl;
+        // Update other fields
+        $team->name = $validatedData['name'];
+        $team->designation = $validatedData['designation'];
+        $team->description = $validatedData['description'];
+        $team->category_id = $validatedData['category'];
+        $team->save();
+
+        // Redirect back with a success message or any other response
+        return redirect()->back()->with('success', 'Team updated successfully.');
     }
-
-    // Update other fields
-    $team->name = $validatedData['name'];
-    $team->designation = $validatedData['designation'];
-    $team->description = $validatedData['description'];
-    $team->category_id = $validatedData['category'];
-    $team->save();
-
-    // Redirect back with a success message or any other response
-    return redirect()->back()->with('success', 'Team updated successfully.');
-}
 
 
     /**
@@ -189,6 +189,12 @@ class teamController extends Controller
     public function category_delete($id)
     {
         $category = teamCategory::findOrFail($id);
+
+        // Check if there are related records in the teams table
+        if ($category->teams()->exists()) {
+            return redirect()->back()->with('error', 'Cannot delete category. Related teams exist.');
+        }
+
         $category->delete();
 
         return redirect()->back()->with('success', 'Delete Category successfully.');
