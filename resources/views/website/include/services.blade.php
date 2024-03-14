@@ -17,7 +17,7 @@
                                     <img src="{{ asset($item->image) }}" alt="web development" width="110" height="110" />
                                     <i class=""></i>
                                 </div>
-                                <h4><a href="services.html">{{ $item->title }}</a></h4>
+                                <h4><a href="">{{ $item->title }}</a></h4>
                                 <p>
                                     {{ $item->description }}
                                 </p>
