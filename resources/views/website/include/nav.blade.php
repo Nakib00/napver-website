@@ -13,9 +13,9 @@
                     <li>
                         <a class="nav-link scrollto" href="{{ route('index') }}#services">Services</a>
                     </li>
-                    <li>
+                    {{--  <li>
                         <a class="nav-link scrollto" href="{{ route('protfolio.page') }}">Portfolio</a>
-                    </li>
+                    </li>  --}}
                     <li>
                         <a class="nav-link scrollto" href="{{ route('teams.index') }}">Team</a>
                     </li>

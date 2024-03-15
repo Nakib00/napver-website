@@ -83,7 +83,7 @@
                             <li data-filter=".filter-app" class="filter-btn filter-active" data-target="app">All</li>
                             {{--  <!-- Show all initially -->  --}}
                             @foreach ($teamcategory as $item)
-                                <li data-filter=".filter-card" class="filter-btn" data-target="{{ $item->name }}">
+                                <li data-filter=".filter-card" class="filter-btn" data-target="{{ $item->id }}">
                                     {{ $item->name }}</li>
                             @endforeach
                         </ul>
@@ -94,7 +94,7 @@
                         <div class="row mx-5 team-members">
                             @foreach ($teamcategory as $category)
                                 @foreach ($category->teams as $team)
-                                    <div class="col-sm-3 my-3 filter-card {{ $category->name }}">
+                                    <div class="col-sm-3 my-3 filter-card {{ $category->id }}">
                                         <div class="text-center">
                                             <img class="hero-img team-img" src="{{ asset($team->image) }}" />
                                             <div class="mt-5">

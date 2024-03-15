@@ -27,20 +27,18 @@
             <div class="container">
                 <div class="row">
                     @foreach ($about as $item)
-                        @if ($item->status == 1)
-                            <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="150">
-                                <img src="{{ asset($item->image) }}" class="img-fluid" alt="" />
-                            </div>
+                        <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="150">
+                            <img src="{{ asset($item->image) }}" class="img-fluid" alt="" />
+                        </div>
 
-                            <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content" data-aos="fade-right">
-                                <h3>{{ $item->title }}</h3>
-                                <p class="fst-italic">
-                                    {{ $item->shortDescription }}
-                                </p>
+                        <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content" data-aos="fade-right">
+                            <h3>{{ $item->title }}</h3>
+                            <p class="fst-italic">
+                                {{ $item->shortDescription }}
+                            </p>
 
-                                <a href="#" class="read-more">Read More <i class="bi bi-long-arrow-right"></i></a>
-                            </div>
-                        @endif
+                            <a href="#" class="read-more">Read More <i class="bi bi-long-arrow-right"></i></a>
+                        </div>
                     @endforeach
 
                 </div>
