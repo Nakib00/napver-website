@@ -20,23 +20,23 @@
                     <ul>
                         <li>
                             <i class="bx bx-chevron-right"></i>
-                            <a href="services.html">Web Design</a>
+                            <a href="/">Web Design</a>
                         </li>
                         <li>
                             <i class="bx bx-chevron-right"></i>
-                            <a href="services.html">Web Development</a>
+                            <a href="/">Web Development</a>
                         </li>
                         <li>
                             <i class="bx bx-chevron-right"></i>
-                            <a href="services.html">Mobile Apps Development</a>
+                            <a href="/">Mobile Apps Development</a>
                         </li>
                         <li>
                             <i class="bx bx-chevron-right"></i>
-                            <a href="services.html">SEO</a>
+                            <a href="/">SEO</a>
                         </li>
                         <li>
                             <i class="bx bx-chevron-right"></i>
-                            <a href="services.html">Video Editing</a>
+                            <a href="/">Video Editing</a>
                         </li>
                     </ul>
                 </div>
