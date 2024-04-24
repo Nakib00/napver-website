@@ -40,6 +40,24 @@
                         </li>
                     </ul>
                 </div>
+
+                <div class="col-lg-3 col-md-6 footer-links">
+                    <h4>Quick Link</h4>
+                    <ul>
+                        <li>
+                            <i class="bx bx-chevron-right"></i>
+                            <a href="https://www.behance.net/gallery/194556161/Napver-Logo-Kit" target="_blank">Press Kit</a>
+                        </li>
+                        <li>
+                            <i class="bx bx-chevron-right"></i>
+                            <a href="/">Career</a>
+                        </li>
+                        <li>
+                            <i class="bx bx-chevron-right"></i>
+                            <a href="/">SiteMap</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

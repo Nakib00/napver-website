@@ -96,6 +96,7 @@
                                 @foreach ($category->teams as $team)
                                     <div class="col-sm-3 my-3 filter-card {{ $category->id }}">
                                         <div class="text-center">
+
                                             <img class="hero-img team-img" src="{{ asset($team->image) }}" />
                                             <div class="mt-5">
                                                 <h3>{{ $team->name }}</h3>

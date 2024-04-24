@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{about, setting, service, protfolio,teamcategory,team};
+use App\Models\{about, setting, service, protfolio, teamcategory, team};
 
 class appController extends Controller
 {
@@ -23,22 +23,28 @@ class appController extends Controller
         $teamcategory = teamcategory::all();
         $teams = team::all();
         $address = Setting::select('address', 'phone', 'email')->get();
-        return view('website.team', compact('address','teamcategory','teams'));
+        return view('website.team', compact('address', 'teamcategory', 'teams'));
     }
 
     public function protfolio()
     {
-        $protfolio = protfolio::all();
+        // $protfolio = protfolio::all();
         $address = Setting::select('address', 'phone', 'email')->get();
-        return view('website.protfolio', compact('address', 'protfolio'));
+        return view('website.h', compact('address'));
     }
 
     public function protshow(string $id)
     {
-
         $protfolio = protfolio::findOrFail($id);
         $address = Setting::select('address', 'phone', 'email')->get();
 
-        return view('website.portfolio-details', compact('address','protfolio'));
+        return view('website.portfolio-details', compact('address', 'protfolio'));
+    }
+
+    public function careers()
+    {
+
+        $address = Setting::select('address', 'phone', 'email')->get();
+        return view('website.career', compact('address'));
     }
 }

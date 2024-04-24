@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\{appController, aboutController, contactController, messageController, protfolioController, serviceController, teamController, settingController};
 use App\Http\Controllers\SslCommerzPaymentController;
@@ -13,8 +14,9 @@ Route::prefix('/')->group(function () {
     Route::get('', [appController::class, 'Index'])->name('index');
     Route::post('/message', [appController::class, 'store'])->name('message.store');
     Route::get('/teams',[appController::class, 'teams'])->name('teams.index');
-    Route::get('protfolio',[appController::class, 'protfolio'])->name('protfolio.page');
+    Route::get('/protfolio',[appController::class, 'protfolio'])->name('protfolio.page');
     Route::get('/details/{id}',[appController::class, 'protshow'])->name('protshow.page');
+    Route::get('/careers',[appController::class, 'careers'])->name('careers.page');
 });
 
 // Website route end
@@ -92,6 +94,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// Auth::routes(['register' => false]);
 // Admin route end
 require __DIR__ . '/auth.php';
 
